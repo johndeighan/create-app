@@ -1,0 +1,37 @@
+{
+	"name": "@jdeighan/create-app",
+	"version": "1.1.0",
+	"type": "module",
+	"author": "John Deighan",
+	"license": "MIT",
+	"scripts": {
+		"readme": "cp ./README.md ./src/routes/readme/+page.md",
+		"coffee:watch": "npx coffee -c -w .",
+		"vite:dev": "vite dev",
+		"dev": "npm run readme && npx coffee -c . && run-p coffee:watch vite:dev",
+		"build": "npm run readme && npx coffee -c . && vite build",
+		"preview": "vite preview"
+	},
+	"bin": {
+		"@jdeighan/create-app": "./src/bin/post-install.js"
+		},
+	"devDependencies": {
+		"@jdeighan/base-utils": "^4.0.24",
+		"@jdeighan/svelte-utils": "^2.0.5",
+		"@sveltejs/adapter-auto": "^2.0.0",
+		"@sveltejs/adapter-static": "^2.0.2",
+		"@sveltejs/adapter-vercel": "^2.4.2",
+		"@sveltejs/kit": "^1.5.0",
+		"autoprefixer": "^10.4.14",
+		"coffeescript": "^2.7.0",
+		"mdsvex": "^0.10.6",
+		"npm-run-all": "^4.1.5",
+		"postcss": "^8.4.14",
+		"postcss-load-config": "^4.0.1",
+		"postcss-preset-env": "^8.3.2",
+		"svelte": "^3.54.0",
+		"svelte-preprocess": "^4.10.7",
+		"vite": "^4.2.0",
+		"workbox-precaching": "^6.5.4"
+	}
+}

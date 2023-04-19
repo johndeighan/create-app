@@ -12,12 +12,23 @@ $ npm install
 $ npm install -D @sveltejs/adapter-static @sveltejs/adapter-vercel
 $ npm run dev -- --open
 ```
+
 Change `src/routes/+page.svelte` to:
 
 ```svelte
 <h1>A Svelte Template</h1>
 ```
 and note the immediate change to the web page
+
+Initialize git
+--------------
+
+```bash
+$ git init
+$ git add -A
+$ git commit -m "initial commit"
+$ git branch -M main
+```
 
 Change `package.json`
 ---------------------
@@ -323,6 +334,9 @@ export default {
 Add a simple menu with access to README.md
 ------------------------------------------
 
+See `https://www.youtube.com/watch?v=S-VeYcOCFZw&t=65s` for
+a way to create better menus.
+
 Change `src/routes/+layout.svelte`to:
 
 ```svelte
@@ -390,5 +404,23 @@ add this to your <head> section:
 ```
 
 
-10. Add a 'bin' key in `package.json` for installation
+Add a post install script
+-------------------------
+
+Create the file `src/bin/post-install.js`:
+
+```js
+#!/usr/bin/env node
+
+console.log("Everything installed OK");
+```
+
+Add this key to your `package.json` file:
+
+```json
+	"bin": {
+		"@jdeighan/create-app": "./src/bin/post-install.js"
+		},
+```
+
 11. Push to GitHub

@@ -27,6 +27,7 @@ Initialize git
 $ git init
 $ git add -A
 $ git commit -m "initial commit"
+$ git branch -M main
 ```
 
 Change `package.json`
@@ -422,4 +423,14 @@ Add this key to your `package.json` file:
 		},
 ```
 
-11. Push to GitHub
+Push to GitHub
+--------------
+
+Create the repo on GitHub:
+
+```bash
+$ gh repo create create-app --public
+$ git remote add origin https://github.com/johndeighan/create-app
+$ git push -u origin main
+```
+

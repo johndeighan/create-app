@@ -43,7 +43,7 @@ async function main() {
 
 		// --- Install dependencies
 		console.log('Installing dependencies...');
-		await runCmd('npm install');
+		spawnSync('npm install');
 		console.log('Dependencies installed successfully.');
 		console.log();
 

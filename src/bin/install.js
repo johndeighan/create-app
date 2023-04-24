@@ -77,7 +77,7 @@ try {
 		});
 
 	console.log('Removing bin files');
-	fs.rmdirSync(path.join(newDirPath, 'bin'), {recursive: true});
+	fs.rmdirSync(path.join(newDirPath, 'src', 'bin'), {recursive: true});
 
 	console.log('The installation is done, this is ready to use !');
 	console.log("Please update package.json, run 'npm install' and 'git init'");

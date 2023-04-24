@@ -35,7 +35,7 @@ catch (err) {
 async function main() {
 	try {
 		console.log('Cloning...');
-		execSync(`git clone --depth 1 ${git_repo} ${newDirPath}`);
+		process.execSync(`git clone --depth 1 ${git_repo} ${newDirPath}`);
 
 		// --- Change directory
 		process.chdir(newDirPath);
@@ -48,7 +48,7 @@ async function main() {
 
 		// --- Clean unused files
 		console.log('Removing useless files');
-		execSync('npx rimraf ./.git');
+		process.execSync('npx rimraf ./.git');
 		fs.rmdirSync(path.join(newDirPath, 'bin'), {recursive: true});
 
 		console.log('The installation is done, this is ready to use !');

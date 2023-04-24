@@ -14,19 +14,16 @@ else {
 	console.log(process.argv);
 	}
 
-console.log("In install.js - created directory, quitting...");
-process.exit(1);
-
 // --- Parse arguments and option
-const projectName = process.argv[2];
+const newDirName = process.argv[4];
 const currentPath = process.cwd();
-const projectPath = path.join(currentPath, projectName);
+const newDirPath = path.join(currentPath, newDirName);
 const git_repo = 'https://github.com/johndeighan/create-app.git';
 
 // --- Validate existing folder
 try {
-	console.log(`Creating dir ${projectPath}`);
-	fs.mkdirSync(projectPath);
+	console.log(`Creating dir ${newDirPath}`);
+	fs.mkdirSync(newDirPath);
 	console.log("SUCCESS");
 	}
 catch (err) {
@@ -39,14 +36,17 @@ catch (err) {
 	process.exit(1);
 	}
 
+console.log("In install.js - created directory, quitting...");
+process.exit(1);
+
 // --- define steps in workflow
 async function main() {
 	try {
 		console.log('Downloading files...');
-		execSync(`git clone --depth 1 ${git_repo} ${projectPath}`);
+		execSync(`git clone --depth 1 ${git_repo} ${newDirPath}`);
 
 		// --- Change directory
-		process.chdir(projectPath);
+		process.chdir(newDirPath);
 
 		// --- Install dependencies
 		console.log('Installing dependencies...');
@@ -57,7 +57,7 @@ async function main() {
 		// --- Clean unused files
 		console.log('Removing useless files');
 		execSync('npx rimraf ./.git');
-		fs.rmdirSync(path.join(projectPath, 'bin'), {recursive: true});
+		fs.rmdirSync(path.join(newDirPath, 'bin'), {recursive: true});
 
 		console.log('The installation is done, this is ready to use !');
 		}

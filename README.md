@@ -404,8 +404,8 @@ add this to your <head> section:
 ```
 
 
-Add a post install script
--------------------------
+Add an install script
+---------------------
 
 Create the file `src/bin/install.js`:
 

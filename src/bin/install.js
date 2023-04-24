@@ -2,19 +2,32 @@
 
 import path from 'node:path';
 import * as fs from 'node:fs';
-import {spawnSync, execSync} from 'node:child_process';
+import {execSync} from 'node:child_process';
 
 // --- Verify arguments
 console.log(process.argv);
-if (process.argv.length !== 3) {
+let dir = process.cwd();
+console.log(`Current Dir: ${dir}`);
+
+let pos = dir.indexOf('create-app');
+if (pos > -1) {
+	dir = dir.substring(0,pos-1);
+	}
+
+if (process.argv.length === 3) {
+	var newDirName = process.argv[2];
+	var newDirPath = path.join(dir, newDirName);
+	var git_repo = 'https://github.com/johndeighan/create-app.git';
+	}
+else if (process.argv.length === 5) {
+	var newDirName = process.argv[4];
+	var newDirPath = path.join(dir, newDirName);
+	var git_repo = 'https://github.com/johndeighan/create-app.git';
+	}
+else {
 	console.log('Usage: npm create @jdeighan/app <name>');
 	process.exit(1);
 	}
-
-// --- Parse arguments and option
-const newDirName = process.argv[2];
-const newDirPath = path.join(process.cwd(), newDirName);
-const git_repo = 'https://github.com/johndeighan/create-app.git';
 
 // --- Validate existing folder
 try {

@@ -9,9 +9,11 @@ console.log(process.argv);
 let dir = process.cwd();
 console.log(`Current Dir: ${dir}`);
 
+// --- If in create-app subdirectory, go up one level
 let pos = dir.indexOf('create-app');
 if (pos > -1) {
 	dir = dir.substring(0,pos-1);
+	console.log(`Changed dir to ${dir}`);
 	}
 
 if (process.argv.length === 3) {
@@ -33,7 +35,7 @@ else {
 try {
 	console.log(`Creating dir ${newDirPath}`);
 	fs.mkdirSync(newDirPath);
-	console.log("SUCCESS, directory created");
+	console.log(`SUCCESS, dir ${newDirPath} created`);
 	}
 catch (err) {
 	if (err.code === 'EEXIST') {
@@ -58,8 +60,11 @@ try {
 			}
 		});
 
+	// --- Changing working directory
+	console.log(`Change dir to ${newDirPath}`);
+	process.chdir(newDirPath);
+
 	console.log('Removing .git');
-//	await run_cmd('npx', ['rimraf','./.git']);
 	cmd = 'npx rimraf ./.git';
 	execSync(cmd, {}, function(error, stdout, stderr) {
 		if (error) {
@@ -75,7 +80,7 @@ try {
 	fs.rmdirSync(path.join(newDirPath, 'bin'), {recursive: true});
 
 	console.log('The installation is done, this is ready to use !');
-	console.log("Please run 'npm install' and 'git init'");
+	console.log("Please update package.json, run 'npm install' and 'git init'");
 
 	process.exit();
 	}

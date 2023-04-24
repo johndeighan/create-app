@@ -13,7 +13,7 @@
 		"preview": "vite preview"
 	},
 	"bin": {
-		"@jdeighan/create-app": "./src/bin/post-install.js"
+		"@jdeighan/create-app": "./src/bin/install.js"
 	},
 	"devDependencies": {
 		"@jdeighan/base-utils": "^4.0.24",

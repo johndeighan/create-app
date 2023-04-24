@@ -45,24 +45,40 @@ catch (err) {
 	process.exit(1);
 	}
 
-async function main() {
-	try {
-		console.log(`Cloning ${git_repo}...`);
-		let cmd = `git clone --depth 1 ${git_repo} ${newDirPath}`;
-		execSync(cmd, {}, function(error, stdout, stderr) {
-			if (error) {
-				console.log(`ERROR ${error.code}`);
-				}
-			else {
-				console.log("SUCCESS");
-				console.log(stdout);
-				}
-			});
-		process.exit();
-		}
-	catch (error) {
-		console.log(error);
-		}
-	} // main()
+try {
+	console.log(`Cloning ${git_repo}...`);
+	let cmd = `git clone --depth 1 ${git_repo} ${newDirPath}`;
+	execSync(cmd, {}, function(error, stdout, stderr) {
+		if (error) {
+			console.log(`ERROR ${error.code}`);
+			}
+		else {
+			console.log("SUCCESS");
+			console.log(stdout);
+			}
+		});
 
-main()
+	console.log('Removing .git');
+//	await run_cmd('npx', ['rimraf','./.git']);
+	cmd = 'npx rimraf ./.git';
+	execSync(cmd, {}, function(error, stdout, stderr) {
+		if (error) {
+			console.log(`ERROR ${error.code}`);
+			}
+		else {
+			console.log("SUCCESS");
+			console.log(stdout);
+			}
+		});
+
+	console.log('Removing bin files');
+	fs.rmdirSync(path.join(newDirPath, 'bin'), {recursive: true});
+
+	console.log('The installation is done, this is ready to use !');
+	console.log("Please run 'npm install' and 'git init'");
+
+	process.exit();
+	}
+catch (error) {
+	console.log(error);
+	}

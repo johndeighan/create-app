@@ -4,14 +4,12 @@ import path from 'node:path';
 import * as fs from 'node:fs';
 
 // --- Verify arguments
+console.log(process.argv);
 if (process.argv.length < 3) {
 	console.log('You have to provide a name to your app.');
 	console.log('For example :');
 	console.log('    npm create @jdeighan/app my-app');
 	process.exit(1);
-	}
-else {
-	console.log(process.argv);
 	}
 
 // --- Parse arguments and option

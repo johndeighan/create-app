@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 import path from 'node:path';
+import * as fs from 'node:fs';
 
 // --- Verify arguments
 if (process.argv.length < 3) {

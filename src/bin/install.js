@@ -19,7 +19,9 @@ const git_repo = 'https://github.com/johndeighan/create-app.git';
 
 // --- Validate existing folder
 try {
+	console.log(`Creating dir ${projectPath}`);
 	fs.mkdirSync(projectPath);
+	console.log("SUCCESS");
 	}
 catch (err) {
 	if (err.code === 'EEXIST') {

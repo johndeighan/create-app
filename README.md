@@ -434,3 +434,18 @@ $ git remote add origin https://github.com/johndeighan/create-app
 $ git push -u origin main
 ```
 
+Push to npm
+-----------
+
+```bash
+$ npm publish --access=public
+``
+
+Use it
+------
+
+Now, you should be able to create a new project using:
+
+```bash
+$ npm create @jdeighan/app myapp
+```

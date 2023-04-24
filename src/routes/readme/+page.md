@@ -423,4 +423,19 @@ Add this key to your `package.json` file:
 		},
 ```
 
-11. Push to GitHub
+Push to GitHub
+--------------
+
+Create the repo on GitHub:
+
+```bash
+$ gh repo create create-app --public
+$ git remote add origin https://github.com/johndeighan/create-app
+$ git push -u origin main
+```
+
+Now, you should be able to create a new project using:
+
+```bash
+$ npm create @jdeighan/app myapp
+```

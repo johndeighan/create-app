@@ -4,16 +4,6 @@ import path from 'node:path';
 import * as fs from 'node:fs';
 import {spawnSync} from 'node:child_process';
 
-// --- Define functions ------------------------------------
-
-function run_cmd(cmd, lArgs, callBack) {
-
-	const result = spawnSync(cmd, lArgs, {encoding: 'utf-8'});
-	console.log(result.stdout);
-	return;
-	}
-
-// ----------------------------------------------------------
 
 // --- Verify arguments
 console.log(process.argv);
@@ -45,9 +35,11 @@ catch (err) {
 
 async function main() {
 	try {
-		console.log('Cloning...');
-	//	spawnSync(`git clone --depth 1 ${git_repo} ${newDirPath}`);
-		await run_cmd('git' ['clone', '--depth', '1', git_repo, newDirPath]);
+		console.log(`Cloning ${git_repo}...`);
+		let cmd = `git clone --depth 1 ${git_repo} ${newDirPath}`;
+		let result = spawnSync(cmd);
+		console.log(`RESULT:\n${result.stdout});
+		process.exit(1);
 
 		// --- Change directory
 		process.chdir(newDirPath);

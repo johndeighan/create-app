@@ -13,7 +13,7 @@ if (process.argv.length < 3) {
 	}
 
 // --- Parse arguments and option
-const newDirName = process.argv[4];
+const newDirName = process.argv[2];
 const currentPath = process.cwd();
 const newDirPath = path.join(currentPath, newDirName);
 const git_repo = 'https://github.com/johndeighan/create-app.git';

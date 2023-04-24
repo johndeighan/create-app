@@ -439,7 +439,7 @@ Push to npm
 
 ```bash
 $ npm publish --access=public
-``
+```
 
 Use it
 ------

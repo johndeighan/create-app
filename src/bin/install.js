@@ -1,8 +1,5 @@
 #!/usr/bin/env node
 
-console.log("In install.js, quitting...");
-process.exit(1);
-
 // --- Verify arguments
 if (process.argv.length < 3) {
 	console.log('You have to provide a name to your app.');
@@ -30,6 +27,9 @@ catch (err) {
 		}
 	process.exit(1);
 	}
+
+console.log("In install.js - created directory, quitting...");
+process.exit(1);
 
 // --- define steps in workflow
 async function main() {

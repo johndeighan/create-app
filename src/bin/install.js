@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 
+import path from 'node:path';
+
 // --- Verify arguments
 if (process.argv.length < 3) {
 	console.log('You have to provide a name to your app.');

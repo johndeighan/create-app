@@ -2,8 +2,7 @@
 
 import path from 'node:path';
 import * as fs from 'node:fs';
-import {spawnSync} from 'node:child_process';
-
+import {spawnSync, execSync} from 'node:child_process';
 
 // --- Verify arguments
 console.log(process.argv);
@@ -37,9 +36,16 @@ async function main() {
 	try {
 		console.log(`Cloning ${git_repo}...`);
 		let cmd = `git clone --depth 1 ${git_repo} ${newDirPath}`;
-		let result = spawnSync(cmd);
-		console.log(`RESULT:\n${result.stdout});
-		process.exit(1);
+		execSync(cmd, {}, function(error, stdout, stderr) {
+			if (error) {
+				console.log(`ERROR ${error.code}`);
+				}
+			else {
+				console.log("SUCCESS");
+				console.log(stdout);
+				}
+			});
+		process.exit();
 		}
 	catch (error) {
 		console.log(error);

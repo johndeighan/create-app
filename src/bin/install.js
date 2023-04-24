@@ -5,24 +5,21 @@ import * as fs from 'node:fs';
 
 // --- Verify arguments
 console.log(process.argv);
-if (process.argv.length < 3) {
-	console.log('You have to provide a name to your app.');
-	console.log('For example :');
-	console.log('    npm create @jdeighan/app my-app');
+if (process.argv.length !== 3) {
+	console.log('Usage: npm create @jdeighan/app <name>');
 	process.exit(1);
 	}
 
 // --- Parse arguments and option
 const newDirName = process.argv[2];
-const currentPath = process.cwd();
-const newDirPath = path.join(currentPath, newDirName);
+const newDirPath = path.join(process.cwd(), newDirName);
 const git_repo = 'https://github.com/johndeighan/create-app.git';
 
 // --- Validate existing folder
 try {
 	console.log(`Creating dir ${newDirPath}`);
 	fs.mkdirSync(newDirPath);
-	console.log("SUCCESS");
+	console.log("SUCCESS, directory created");
 	}
 catch (err) {
 	if (err.code === 'EEXIST') {
@@ -34,13 +31,10 @@ catch (err) {
 	process.exit(1);
 	}
 
-console.log("In install.js - created directory, quitting...");
-process.exit(1);
-
 // --- define steps in workflow
 async function main() {
 	try {
-		console.log('Downloading files...');
+		console.log('Cloning...');
 		execSync(`git clone --depth 1 ${git_repo} ${newDirPath}`);
 
 		// --- Change directory

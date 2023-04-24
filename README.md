@@ -1,6 +1,9 @@
 Create an app template
 ======================
 
+How to create this package
+==========================
+
 Create a standard SvelteKit app
 -------------------------------
 

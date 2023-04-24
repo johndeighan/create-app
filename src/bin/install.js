@@ -52,23 +52,46 @@ catch (err) {
 
 // --------------------------------------------------------------------------
 
+function execCmd(cmdLine) {
+
+	execSync(cmdLine, {}, function(error, stdout, stderr) {
+		if (error) {
+			console.log(`ERROR in ${cmdLine}: ${error.code}`);
+			process.exit(1);
+			}
+		else {
+			console.log(`OUTPUT from ${cmdLine}`);
+			console.log(stdout);
+			}
+		});
+	return;
+	} // execCmd()
+
+// --------------------------------------------------------------------------
+
+function gitSetup() {
+
+	execCmd('git init');
+	execCmd('git add -A');
+	execCmd('git commit -m "initial commit"');
+	execCmd('git branch -M main');
+	return;
+	} // gitSetup()
+
+// --------------------------------------------------------------------------
+
 async function main() {
 	try {
 		console.log(`Clone ${git_repo}...`);
-		let cmd = `git clone --depth 1 ${git_repo} ${newDirPath}`;
-		execSync(cmd, {}, function(error, stdout, stderr) {
-			if (error) {
-				console.log(`ERROR ${error.code}`);
-				}
-			else {
-				console.log("SUCCESS");
-				console.log(stdout);
-				}
-			});
+		execCmd(`git clone ${git_repo} ${newDirPath}`);
 
 		// --- Changing working directory
 		console.log(`cd to ${newDirPath}`);
 		process.chdir(newDirPath);
+
+		console.log('Remove README.md and NOTES.md');
+		await rm('./README.md');
+		await rm('./NOTES.md');
 
 		console.log('Remove directory .git');
 		await rm('./.git', {recursive: true});
@@ -76,7 +99,7 @@ async function main() {
 		console.log('Remove directory src/bin');
 		await rm('./src/bin', {recursive: true});
 
-		console.log(`Updating package.json at ${newDirPath}`);
+		console.log(`Update package.json at ${newDirPath}`);
 
 		// --- Read package.json
 		var pkgJsonPath = path.join(newDirPath, 'package.json');
@@ -92,9 +115,10 @@ async function main() {
 		jsonTxt = JSON.stringify(hJson, null, 3);
 		await writeFile(pkgJsonPath, jsonTxt);
 
-		console.log('The installation is done');
-		console.log("Please update package.json, run 'npm install' and 'git init'");
+		console.log("Set up GIT");
+		gitSetup();
 
+		console.log('DONE! (please run npm install and npm audit fix)');
 		process.exit();
 		}
 	catch (error) {

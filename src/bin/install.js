@@ -4,6 +4,17 @@ import path from 'node:path';
 import * as fs from 'node:fs';
 import {spawnSync} from 'node:child_process';
 
+// --- Define functions ------------------------------------
+
+function run_cmd(cmd, lArgs, callBack) {
+
+	const result = spawnSync(cmd, lArgs, {encoding: 'utf-8'});
+	console.log(result.stdout);
+	return;
+	}
+
+// ----------------------------------------------------------
+
 // --- Verify arguments
 console.log(process.argv);
 if (process.argv.length !== 3) {
@@ -32,32 +43,29 @@ catch (err) {
 	process.exit(1);
 	}
 
-// --- define steps in workflow
-async function main() {
-	try {
-		console.log('Cloning...');
-		spawnSync(`git clone --depth 1 ${git_repo} ${newDirPath}`);
+try {
+	console.log('Cloning...');
+//	spawnSync(`git clone --depth 1 ${git_repo} ${newDirPath}`);
+	run_cmd('git' ['clone','--depth','1',git_repo, newDirPath]);
 
-		// --- Change directory
-		process.chdir(newDirPath);
+	// --- Change directory
+	process.chdir(newDirPath);
 
-		// --- Install dependencies
-		console.log('Installing dependencies...');
-		spawnSync('npm install');
-		console.log('Dependencies installed successfully.');
-		console.log();
+	// --- Install dependencies
+	console.log('Installing dependencies...');
+//	spawnSync('npm install');
+	run_cmd('npm', ['install']);
+	console.log('Dependencies installed successfully.');
+	console.log();
 
-		// --- Clean unused files
-		console.log('Removing useless files');
-		spawnSync('npx rimraf ./.git');
-		fs.rmdirSync(path.join(newDirPath, 'bin'), {recursive: true});
+	// --- Clean unused files
+	console.log('Removing useless files');
+//	spawnSync('npx rimraf ./.git');
+	run_cmd('npx', ['rimraf','./.git']);
+	fs.rmdirSync(path.join(newDirPath, 'bin'), {recursive: true});
 
-		console.log('The installation is done, this is ready to use !');
-		}
-	catch (error) {
-		console.log(error);
-		}
+	console.log('The installation is done, this is ready to use !');
 	}
-
-// --- trigger workflow
-main();
+catch (error) {
+	console.log(error);
+	}

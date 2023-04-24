@@ -1,6 +1,6 @@
 {
 	"name": "@jdeighan/create-app",
-	"version": "1.1.0",
+	"version": "1.2.0",
 	"type": "module",
 	"author": "John Deighan",
 	"license": "MIT",
@@ -14,7 +14,7 @@
 	},
 	"bin": {
 		"@jdeighan/create-app": "./src/bin/post-install.js"
-		},
+	},
 	"devDependencies": {
 		"@jdeighan/base-utils": "^4.0.24",
 		"@jdeighan/svelte-utils": "^2.0.5",

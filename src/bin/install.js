@@ -2,7 +2,7 @@
 
 import path from 'node:path';
 import * as fs from 'node:fs';
-import spawnSync from 'node:child_process';
+import {spawnSync} from 'node:child_process';
 
 // --- Verify arguments
 console.log(process.argv);

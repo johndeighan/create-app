@@ -1,5 +1,5 @@
-#!/usr/bin/env node
-
+`#!/usr/bin/env node
+`
 import path from 'node:path'
 import * as fs from 'node:fs'
 import {readFile, writeFile, rm} from 'node:fs/promises'
@@ -115,9 +115,10 @@ main = () =>
 		# --- Change shell's current directory to new directory
 		execCmd "cd #{newDirPath}"
 
-		console.log 'DONE! - please run:'
-		console.log 'npm install'
-		console.log 'npm audit fix'
+		console.log "DONE! - please run:"
+		console.log "   cd #{appName}"
+		console.log "   npm install"
+		console.log "   npm audit fix"
 		process.exit()
 
 	catch err

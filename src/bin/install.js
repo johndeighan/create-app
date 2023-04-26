@@ -126,8 +126,10 @@ async function main() {
 		console.log("Set up GIT");
 		gitSetup();
 
-		console.log('DONE! (please run npm install and npm audit fix)');
-		console.log(`cd ${appName}`);
+		// --- Change shell's current directory to new directory
+		execCmd(`cd ${newDirPath}`);
+
+		console.log('DONE! - please run:');
 		console.log('npm install');
 		console.log('npm audit fix');
 		process.exit();

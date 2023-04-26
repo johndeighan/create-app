@@ -15,11 +15,11 @@
 		background-color: lightBlue;
 		& a {
 			border: none;
+			padding: 3px 12px;
 			text-decoration: none;
 			color: black;
 			font-size: 16pt;
 			cursor: pointer;
-			padding: 0;
 			&:hover {
 				background-color: blue;
 				color: white;

@@ -1,5 +1,5 @@
 import sveltePreProc from "svelte-preprocess";
-import adapter from "@sveltejs/adapter-static";
+import adapter from "@sveltejs/adapter-vercel";
 import {coffeePreProcessor} from "@jdeighan/svelte-utils/preprocessors";
 import {mdsvex} from 'mdsvex';
 

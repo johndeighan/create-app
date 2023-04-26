@@ -93,6 +93,14 @@ async function main() {
 		await rm('./README.md');
 		await rm('./NOTES.md');
 
+		// --- Create new README.md
+		await writeFile('./README.md',
+			`${appName} App
+			===============
+
+			Describe how to create your app
+			`);
+
 		console.log('Remove directory .git');
 		await rm('./.git', {recursive: true});
 
@@ -119,6 +127,9 @@ async function main() {
 		gitSetup();
 
 		console.log('DONE! (please run npm install and npm audit fix)');
+		console.log(`cd ${appName}`);
+		console.log('npm install');
+		console.log('npm audit fix');
 		process.exit();
 		}
 	catch (error) {

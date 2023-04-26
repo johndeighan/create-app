@@ -1,6 +1,9 @@
 Create an app template
 ======================
 
+How to create this package
+==========================
+
 Create a standard SvelteKit app
 -------------------------------
 
@@ -404,15 +407,71 @@ add this to your <head> section:
 ```
 
 
-Add a post install script
--------------------------
+Add an install script
+---------------------
 
-Create the file `src/bin/post-install.js`:
+Create the file `src/bin/install.js`:
 
 ```js
 #!/usr/bin/env node
 
-console.log("Everything installed OK");
+// --- Verify arguments
+if (process.argv.length < 3) {
+	console.log('You have to provide a name to your app.');
+	console.log('For example :');
+	console.log('    npm create @jdeighan/app my-app');
+	process.exit(1);
+	}
+
+// --- Parse arguments and option
+const projectName = process.argv[2];
+const currentPath = process.cwd();
+const projectPath = path.join(currentPath, projectName);
+const git_repo = 'https://github.com/johndeighan/create-app.git';
+
+// --- Validate existing folder
+try {
+	fs.mkdirSync(projectPath);
+	}
+catch (err) {
+	if (err.code === 'EEXIST') {
+		console.log('Directory already exists. Please choose another name for the project.');
+		}
+	else {
+		console.log(error);
+		}
+	process.exit(1);
+	}
+
+// --- define steps in workflow
+async function main() {
+	try {
+		console.log('Downloading files...');
+		execSync(`git clone --depth 1 ${git_repo} ${projectPath}`);
+
+		// --- Change directory
+		process.chdir(projectPath);
+
+		// --- Install dependencies
+		console.log('Installing dependencies...');
+		await runCmd('npm install');
+		console.log('Dependencies installed successfully.');
+		console.log();
+
+		// --- Clean unused files
+		console.log('Removing useless files');
+		execSync('npx rimraf ./.git');
+		fs.rmdirSync(path.join(projectPath, 'bin'), {recursive: true});
+
+		console.log('The installation is done, this is ready to use !');
+		}
+	catch (error) {
+		console.log(error);
+		}
+	}
+
+// --- trigger workflow
+main();
 ```
 
 Add this key to your `package.json` file:
@@ -433,6 +492,16 @@ $ gh repo create create-app --public
 $ git remote add origin https://github.com/johndeighan/create-app
 $ git push -u origin main
 ```
+
+Push to npm
+-----------
+
+```bash
+$ npm publish --access=public
+```
+
+Use it
+------
 
 Now, you should be able to create a new project using:
 

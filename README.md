@@ -112,11 +112,12 @@ Check PostCSS by changing `src/routes/+page.svelte` to:
 </style>
 ```
 
-Import some @jdeighan libs, like base-utils
--------------------------------------------
+Import some @jdeighan libs
+--------------------------
 
 ```bash
-$ npm install -D @jdeighan/base-utils
+$ npm install @jdeighan/base-utils
+$ npm install -D @jdeighan/unit-tester @jdeighan/coffee-utils
 ```
 
 Enable CoffeeScript

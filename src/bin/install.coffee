@@ -1,10 +1,11 @@
 `#!/usr/bin/env node
 `
 import {
-	mkpath, mkdir,
-	rmdir, rmfile,
+	mkpath, slurp, slurpPkgJSON, barf, barfPkgJSON,
+	} from '@jdeighan/base-utils/fs'
+import {
+	mkdir, rmdir, rmfile,
 	execCmd, cloneRepo,
-	slurp, barf,
 	} from '@jdeighan/coffee-utils/fs'
 import {LOG, LOGVALUE} from '@jdeighan/base-utils/log'
 
@@ -47,12 +48,12 @@ main = () =>
 	await rmfile './README.md'
 
 	# --- Create new README.md
-	barf './README.md', """
+	barf """
 		#{appName} App
 		===============
 
 		Describe how to create your app
-		"""
+		""", './README.md'
 
 	LOG 'Remove directory .git'
 	rmdir './.git'
@@ -63,8 +64,7 @@ main = () =>
 	LOG "Update package.json at #{projDir}"
 
 	# --- Read package.json
-	pkgJsonPath = mkpath(projDir, 'package.json')
-	hJson = slurp(pkgJsonPath, {format: 'JSON'})
+	hJson = slurpPkgJSON()
 
 	# --- Modify hJson
 	hJson.name = hJson.name.replace 'create-app', appName
@@ -72,7 +72,7 @@ main = () =>
 	delete hJson.bin
 
 	# --- Write package.json
-	barf(pkgJsonPath, hJson, {format: 'JSON'});
+	barfPkgJSON hJson
 
 	LOG "Set up GIT"
 	execCmd 'git init'
